@@ -49,7 +49,7 @@ function generatePhotoArray() {
   return photoArray;
 }
 
-const photo = () => generatePhotoArray();
+const mekePhotoArray = () => generatePhotoArray();
 
-export{generateRandomComment, generatePhotoArray};
-export{photo};
+export{mekePhotoArray};
+

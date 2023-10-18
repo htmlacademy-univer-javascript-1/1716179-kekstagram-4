@@ -1,3 +1,3 @@
-import { photo } from './data.js';
+import { mekePhotoArray } from './data.js';
 
-console.log(photo());
+console.log(mekePhotoArray());
