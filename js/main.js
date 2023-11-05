@@ -1,2 +1,3 @@
 import { mekePhotoArray } from './data.js';
-mekePhotoArray();
+import { renderThumbnails } from './paint.js';
+renderThumbnails(mekePhotoArray());
