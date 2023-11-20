@@ -1,32 +1,39 @@
-// Генерация случайного числа
-const getRandomNumber = (a, b) => {
-  const lower = Math.ceil(Math.min(a, b));
-  const upper = Math.floor(Math.max(a, b));
+function getRandomInteger(min, max) {
+  const lower = Math.ceil(Math.min(Math.abs(min), Math.abs(max)));
+  const upper = Math.floor(Math.max(Math.abs(min), Math.abs(max)));
   const result = Math.random() * (upper - lower + 1) + lower;
+
   return Math.floor(result);
-};
+}
+function createRandomIdFromRangeGenerator(min, max) {
+  const previousValues = [];
 
-//Массив с комментарьями
-const comments = [
-  'Всё отлично!',
-  'В целом всё неплохо. Но не всё.',
-  'Когда вы делаете фотографию, хорошо бы убирать палец из кадра. В конце концов это просто непрофессионально.',
-  'Моя бабушка случайно чихнула с фотоаппаратом в руках и у неё получилась фотография лучше.',
-  'Я поскользнулся на банановой кожуре и уронил фотоаппарат на кота и у меня получилась фотография лучше.',
-  'Лица у людей на фотке перекошены, как будто их избивают. Как можно было поймать такой неудачный момент?!'
-];
+  return function () {
+    let currentValue = getRandomInteger(min, max);
+    if (previousValues.length >= (max - min + 1)) {
+      return null;
+    }
+    while (previousValues.includes(currentValue)) {
+      currentValue = getRandomInteger(min, max);
+    }
+    previousValues.push(currentValue);
+    return currentValue;
+  };
+}
 
-//Массив с именами
-const names = [
-  'Иван',
-  'Хуан Себастьян',
-  'Мария',
-  'Кристоф',
-  'Виктор',
-  'Юлия',
-  'Люпита',
-  'Вашингтон',
-];
+function generateName() {
+  const dataName = [
+    'Михаил', 'Александр', 'Максим', 'Марк', 'Артём', 'Лев', 'Матвей',
+    'София', 'Анна', 'Мария', 'Ева', 'Виктория', 'Полина', 'Варвара'
+  ];
 
-export{names, comments, getRandomNumber};
+  return dataName[getRandomInteger(0, dataName.length - 1)];
+}
 
+const isEscapeKey = (evt) => evt.key === 'Escape';
+
+const isEnterKey = (evt) => evt.key === 'Enter';
+
+
+export {getRandomInteger, createRandomIdFromRangeGenerator, generateName,
+  isEscapeKey, isEnterKey};
