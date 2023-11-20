@@ -1,21 +1,32 @@
 import { data } from './paint.js';
 import { bigPictureImage } from './big-picture.js';
 
-export function renderComments(image) {
-  const thumbnailId = image.target.id;
-  const comments = data.find((i) => i.id === thumbnailId)['comments'];
+export function renderComments(image, startComment, commentLoader) {
+  const imgId = image.target.id;
+  const comments = data.find((i) => i.id === imgId)['comments'];
   const commentTemplate = document.querySelector('#comment').content;
   const commentsList = document.querySelector('.social__comments');
   const commentsListFragment = document.createDocumentFragment();
-  comments.forEach((comment) => {
-    const newComment = commentTemplate.cloneNode(true);
-    newComment.querySelector('.social__picture').setAttribute('src', comment.avatar);
-    newComment.querySelector('.social__picture').setAttribute('alt', comment.alt);
-    newComment.querySelector('.social__text').textContent = comment.message;
-    commentsListFragment.appendChild(newComment);
-  });
-  commentsList.appendChild(commentsListFragment);
+  let k = 0;
+  return function () {
+    for (let i = startComment; i < startComment + 5; i++) {
+      if (i > comments.length - 1) {
+        commentLoader.classList.add('hidden');
+        break;
+      }
+      k ++;
+      const newComment = commentTemplate.cloneNode(true);
+      newComment.querySelector('.social__picture').setAttribute('src', comments[i].avatar);
+      newComment.querySelector('.social__picture').setAttribute('alt', comments[i].alt);
+      newComment.querySelector('.social__text').textContent = comments[i].message;
+      commentsListFragment.appendChild(newComment);
+      commentsList.appendChild(commentsListFragment);
+    }
+    document.querySelector('.comments-view-count').textContent = k;
+    startComment += 5;
+  };
 }
+
 export function renderImage(image) {
   const likesCount = image.target.parentElement.querySelector('.picture__likes').textContent;
   const commentsCount = image.target.parentElement.querySelector('.picture__comments').textContent;
