@@ -55,3 +55,4 @@ bigPictureCloseButton.addEventListener('keydown', (evt) => {
     closeImage();
   }
 });
+

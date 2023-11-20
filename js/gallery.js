@@ -24,3 +24,4 @@ export function renderImage(image) {
   bigPictureImage.querySelector('.likes-count').textContent = likesCount;
   bigPictureImage.querySelector('.comments-count').textContent = commentsCount;
 }
+
