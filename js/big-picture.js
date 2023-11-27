@@ -18,6 +18,7 @@ function openImage (image) {
   if (image.target.classList.contains('picture__img')){
     bigPictureImage.classList.remove('hidden');
     const commentLoader = bigPictureImage.querySelector('.comments-loader');
+    image.preventDefault();
     commentLoader.classList.remove('hidden');
     const commentsObj = renderComments(image, 0, commentLoader);
     commentsObj();
@@ -43,14 +44,12 @@ function closeImage () {
 }
 
 picturesList.addEventListener('click', (evt) => {
-  evt.preventDefault();
   openImage(evt);
 });
 
 
 picturesList.addEventListener('keydown', (evt) => {
   if (isEnterKey(evt)) {
-    evt.preventDefault();
     openImage(evt);
   }
 });
