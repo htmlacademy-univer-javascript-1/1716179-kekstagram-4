@@ -4,3 +4,4 @@ import './big-picture.js';
 import './file-form.js';
 import './validation.js';
 import './effects.js';
+console.log('ded');
