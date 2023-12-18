@@ -64,18 +64,18 @@ const renderBigPicture = (data) => {
   bigPictureCommentsCount.textContent = data.comments.length;
 };
 
-const closeBigPicture = () => {
-  bigPictureForm.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeyDown);
-  loader.removeEventListener('click', onLoadNewComments);
-};
-
 const onDocumentKeyDown = (evt) => {
   if(isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
+};
+
+const closeBigPicture = () => {
+  bigPictureForm.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeyDown);
+  loader.removeEventListener('click', onLoadNewComments);
 };
 
 const displayImageAndComments = (data) => {

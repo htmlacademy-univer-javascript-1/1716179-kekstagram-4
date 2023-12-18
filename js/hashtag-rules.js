@@ -3,7 +3,6 @@ const MAX_HASHTAGS_COUNT  = 5;
 
 const formUpload = document.querySelector('.img-upload__form');
 const submitBtn = document.querySelector('#upload-submit');
-const textDescriptionInput = document.querySelector('.text__description');
 
 const unspoilt = new Pristine(formUpload, {
   classTo: 'img-upload__field-wrapper',

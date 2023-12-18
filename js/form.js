@@ -77,6 +77,8 @@ const closeForm = () => {
   resetFilters();
 };
 
+// Moved the function declarations to the end
+
 const onCloseFormClick = (evt) => {
   evt.preventDefault();
   closeForm();
@@ -140,3 +142,4 @@ const openForm = () => {
 };
 
 export { openForm, closeForm };
+

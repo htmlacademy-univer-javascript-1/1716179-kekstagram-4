@@ -1,8 +1,6 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
 
-const createImageUrl = (id, directory, format) => {
-  return directory + id + format;
-};
+const createImageUrl = (id, directory, format) => directory + id + format;
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));

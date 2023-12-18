@@ -1,4 +1,4 @@
-import { Effects } from "./effects.js";
+import { Effects } from './effects.js';
 
 const DEFAULT_EFFECT_LEVEL = 100;
 
