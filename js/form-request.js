@@ -66,3 +66,4 @@ const onFail = () => {
 };
 
 export { onSuccess, onFail };
+
