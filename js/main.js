@@ -7,34 +7,42 @@ import { initFilters } from './page-filters.js';
 
 let pictures = [];
 
-const onSuccess = (data) => {
-  pictures = data.slice();
-  createPictures(pictures);
-  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+const displayErrorMessage = () => {
+  const errorMessage = document.createElement('div');
+  errorMessage.style.position = 'absolute';
+  errorMessage.style.left = 0;
+  errorMessage.style.top = 0;
+  errorMessage.style.right = 0;
 
+  errorMessage.style.fontSize = '20px';
+  errorMessage.style.backgroundColor = '#e60b17';
+  errorMessage.style.padding = '15px';
+
+  errorMessage.style.textAlign = 'center';
+  errorMessage.textContent = 'Ошибка при загрузке изображений';
+  document.body.append(errorMessage);
 };
 
-const onFail = () =>{
-  const errorMesage = document.createElement('div');
-  errorMesage.style.position = 'absolute';
-  errorMesage.style.left = 0;
-  errorMesage.style.top = 0;
-  errorMesage.style.right = 0;
+const loadData = () => {
+  const onSuccess = (data) => {
+    pictures = data.slice();
+    createPictures(pictures);
+    document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+  };
 
-  errorMesage.style.fontSize = '20px';
-  errorMesage.style.backgroundColor = '#e60b17';
-  errorMesage.style.padding = '15px';
+  const onFail = () => {
+    displayErrorMessage();
+  };
 
-  errorMesage.style.textAlign = 'center';
-  errorMesage.textContent = 'Ошибка при загрузке изображений';
-  document.body.append(errorMesage);
-
+  getData(onSuccess, onFail);
 };
 
+const initializeApp = () => {
+  loadData();
+  openForm();
+  initFilters();
+};
 
-getData(onSuccess, onFail);
-openForm();
+initializeApp();
 
-initFilters();
-
-export {pictures};
+export{pictures}

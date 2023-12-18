@@ -1,5 +1,8 @@
 const isEscapeKey = (evt) => evt.key === 'Escape';
-const createImageUrl = (id, derictory, format) => derictory + id + format;
+
+const createImageUrl = (id, directory, format) => {
+  return directory + id + format;
+};
 
 const getRandomInteger = (a, b) => {
   const lower = Math.ceil(Math.min(a, b));
@@ -9,7 +12,7 @@ const getRandomInteger = (a, b) => {
   return Math.floor(result);
 };
 
-const createRandomIdFromRangeGenerator =  (min, max) => {
+const createRandomIdFromRangeGenerator = (min, max) => {
   const previousValues = [];
 
   return function () {
@@ -25,14 +28,21 @@ const createRandomIdFromRangeGenerator =  (min, max) => {
   };
 };
 
-function debounce (callback, timeoutDelay = 500) {
+const debounce = (callback, timeoutDelay = 500) => {
   let timeoutId;
   return (...rest) => {
     clearTimeout(timeoutId);
     timeoutId = setTimeout(() => callback.apply(this, rest), timeoutDelay);
   };
-}
+};
 
 const shuffle = (array) => array.sort(() => Math.random() - 0.5);
 
-export {getRandomInteger, createRandomIdFromRangeGenerator, createImageUrl, isEscapeKey, debounce, shuffle};
+export {
+  getRandomInteger,
+  createRandomIdFromRangeGenerator,
+  createImageUrl,
+  isEscapeKey,
+  debounce,
+  shuffle,
+};
