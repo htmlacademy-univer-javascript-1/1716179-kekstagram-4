@@ -5,10 +5,9 @@ const urls = {
 
 const pushRequest = (success, error, method, body) =>{
   fetch ( urls[method], {
-      method: method,
-      body: body,
-    },
-  )
+    method: method,
+    body: body,
+  })
     .then((response) => response.json())
     .then((data) => {
       success(data);
