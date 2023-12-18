@@ -1,13 +1,19 @@
-import {showBigPicture} from './big-picture.js';
+import { showBigPicture } from './big-picture.js';
 
 const pictureContainer = document.querySelector('.pictures');
 const pictureFragments = document.createDocumentFragment();
-const picturesTemplate = document.querySelector('#picture')
-  .content
-  .querySelector('a');
+const picturesTemplate = document.querySelector('#picture').content.querySelector('a');
 
 const removePictures = () => {
   document.querySelectorAll('.picture').forEach((photo) => photo.remove());
+};
+
+const setupPictureClickEvent = (currentPicture, picture) => {
+  const onPictureClick = (evt) => {
+    evt.preventDefault();
+    showBigPicture(picture);
+  };
+  currentPicture.addEventListener('click', onPictureClick);
 };
 
 const createPicture = (picture) => {
@@ -18,13 +24,10 @@ const createPicture = (picture) => {
   currentPicture.querySelector('.picture__comments').textContent = picture.comments.length;
   currentPicture.querySelector('.picture__likes').textContent = picture.likes;
 
-
-  const onPictureClick = (evt) => {
-    evt.preventDefault();
-    showBigPicture(picture);
-  };
   currentPicture.dataset.id = picture.id;
-  currentPicture.addEventListener('click', onPictureClick);
+
+  setupPictureClickEvent(currentPicture, picture);
+
   pictureFragments.append(currentPicture);
 };
 
@@ -36,4 +39,4 @@ const createPictures = (pictures) => {
   pictureContainer.append(pictureFragments);
 };
 
-export {createPictures, removePictures};
+export { createPictures, removePictures };
