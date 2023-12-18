@@ -6,9 +6,9 @@ const picturesTemplate = document.querySelector('#picture')
   .content
   .querySelector('a');
 
-  const removePictures = () => {
-    document.querySelectorAll('.picture').forEach((photo) => photo.remove());
-  };
+const removePictures = () => {
+  document.querySelectorAll('.picture').forEach((photo) => photo.remove());
+};
 
 const createPicture = (picture) => {
   const currentPicture = picturesTemplate.cloneNode(true);
