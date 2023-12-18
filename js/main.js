@@ -3,6 +3,7 @@ import './big-picture.js';
 import './hashtag-rules.js';
 import { openForm } from './form.js';
 import { getData } from './rest-api.js';
+import { initFilters } from './page-filters.js';
 
 let pictures = [];
 
@@ -33,3 +34,7 @@ const onFail = () =>{
 
 getData(onSuccess, onFail);
 openForm();
+
+initFilters();
+
+export {pictures};
