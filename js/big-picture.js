@@ -1,4 +1,4 @@
-import {isEscapeKey} from './util.js';
+import { isEscapeKey } from './util.js';
 
 const commentTemplate = document.querySelector('#comments').content.querySelector('li');
 const body = document.body;
@@ -9,10 +9,17 @@ const bigPictureDescription = bigPictureForm.querySelector('.big-picture__social
 const bigPictureCommentsCount = bigPictureForm.querySelector('.social__comment-count');
 const socials = document.querySelector('.social__comments');
 const closeButton = document.querySelector('#picture-cancel');
-const COMMENTS_STEP =  5;
+const COMMENTS_STEP = 5;
 const loader = document.querySelector('.comments-loader');
 let currentComments = [];
 let visibleCommentsCount;
+
+const closeBigPicture = () => {
+  bigPictureForm.classList.add('hidden');
+  body.classList.remove('modal-open');
+  document.removeEventListener('keydown', onDocumentKeyDown);
+  loader.removeEventListener('click', onLoadNewComments);
+};
 
 const renderComment = (comment) => {
   const currentComment = commentTemplate.cloneNode(true);
@@ -44,7 +51,7 @@ const updateCommentsCountText = () => {
 
 const createComments = () => {
   socials.innerHTML = '';
-  visibleCommentsCount  = Math.min(visibleCommentsCount, currentComments.length);
+  visibleCommentsCount = Math.min(visibleCommentsCount, currentComments.length);
   const commentsSelected = currentComments.slice(0, visibleCommentsCount);
   updateLoaderVisibility();
   updateCommentsCountText();
@@ -64,18 +71,11 @@ const renderBigPicture = (data) => {
   bigPictureCommentsCount.textContent = data.comments.length;
 };
 
-const onDocumentKeyDown = (evt) => {
-  if(isEscapeKey(evt)) {
+const handleKeyDown = (evt) => {
+  if (isEscapeKey(evt)) {
     evt.preventDefault();
     closeBigPicture();
   }
-};
-
-const closeBigPicture = () => {
-  bigPictureForm.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeyDown);
-  loader.removeEventListener('click', onLoadNewComments);
 };
 
 const displayImageAndComments = (data) => {
@@ -89,7 +89,7 @@ const showBigPicture = (picture) => {
   currentComments = picture.comments.slice();
   visibleCommentsCount = COMMENTS_STEP;
   displayImageAndComments(picture);
-  document.addEventListener('keydown', onDocumentKeyDown);
+  document.addEventListener('keydown', handleKeyDown);
   closeButton.addEventListener('click', closeBigPicture);
   loader.addEventListener('click', onLoadNewComments);
 };

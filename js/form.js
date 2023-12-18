@@ -23,45 +23,6 @@ const Zoom = {
   MAX: 100,
 };
 
-const setupFormEventListeners = () => {
-  closeButton.addEventListener('click', onCloseFormClick);
-  document.addEventListener('keydown', onCloseFormEscDown);
-
-  fileUpload.addEventListener('change', onFileUploadChange);
-  scaleControl.value = '100%';
-
-  formUpload.addEventListener('submit', onFormUploadSubmit);
-};
-
-const changeZoom = (factor = 1) => {
-  let size = parseInt(scaleControl.value, 10) + (Zoom.STEP * factor);
-
-  if (size < Zoom.MIN) {
-    size = Zoom.MIN;
-  }
-
-  if (size > Zoom.MAX) {
-    size = Zoom.MAX;
-  }
-
-  scaleControl.value = `${size}%`;
-  imagePreview.style.transform = `scale(${size / 100})`;
-};
-
-const setupZoomButtons = () => {
-  minusButton.addEventListener('click', onMinusButtonClick);
-  plusButton.addEventListener('click', onPlusButtonClick);
-};
-
-const cleanupFormEventListeners = () => {
-  closeButton.removeEventListener('click', onCloseFormClick);
-  document.removeEventListener('keydown', onCloseFormEscDown);
-  formUpload.removeEventListener('submit', onFormUploadSubmit);
-
-  minusButton.removeEventListener('click', onMinusButtonClick);
-  plusButton.removeEventListener('click', onPlusButtonClick);
-};
-
 const closeForm = () => {
   uploadOverlay.classList.add('hidden');
   body.classList.remove('modal-open');
@@ -76,8 +37,6 @@ const closeForm = () => {
 
   resetFilters();
 };
-
-// Moved the function declarations to the end
 
 const onCloseFormClick = (evt) => {
   evt.preventDefault();
@@ -118,11 +77,6 @@ const onFileUploadChange = () => {
   setupButtonsAndRadios();
 };
 
-const setupButtonsAndRadios = () => {
-  setupZoomButtons();
-  initRadios();
-};
-
 const onMinusButtonClick = () => {
   changeZoom(-1);
 };
@@ -135,6 +89,45 @@ const onFormUploadSubmit = (evt) => {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   postData(onSuccess, onFail, 'POST', formData);
+};
+
+const setupFormEventListeners = () => {
+  closeButton.addEventListener('click', onCloseFormClick);
+  document.addEventListener('keydown', onCloseFormEscDown);
+
+  fileUpload.addEventListener('change', onFileUploadChange);
+  scaleControl.value = '100%';
+
+  formUpload.addEventListener('submit', onFormUploadSubmit);
+};
+
+const changeZoom = (factor = 1) => {
+  let size = parseInt(scaleControl.value, 10) + (Zoom.STEP * factor);
+
+  if (size < Zoom.MIN) {
+    size = Zoom.MIN;
+  }
+
+  if (size > Zoom.MAX) {
+    size = Zoom.MAX;
+  }
+
+  scaleControl.value = `${size}%`;
+  imagePreview.style.transform = `scale(${size / 100})`;
+};
+
+const setupZoomButtons = () => {
+  minusButton.addEventListener('click', onMinusButtonClick);
+  plusButton.addEventListener('click', onPlusButtonClick);
+};
+
+const cleanupFormEventListeners = () => {
+  closeButton.removeEventListener('click', onCloseFormClick);
+  document.removeEventListener('keydown', onCloseFormEscDown);
+  formUpload.removeEventListener('submit', onFormUploadSubmit);
+
+  minusButton.removeEventListener('click', onMinusButtonClick);
+  plusButton.removeEventListener('click', onPlusButtonClick);
 };
 
 const openForm = () => {
