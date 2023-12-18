@@ -45,4 +45,4 @@ const initializeApp = () => {
 
 initializeApp();
 
-export{pictures}
+export{pictures};

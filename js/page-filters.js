@@ -7,18 +7,15 @@ const RANDOM_PICTURES_MAX = 10;
 const filtersForm = document.querySelector('.img-filters__form');
 let activeButton = document.querySelector('.img-filters__button--active');
 
+const getShuffledPictures = () => shuffle(pictures.slice()).slice(0, RANDOM_PICTURES_MAX);
+
+const getMostDiscussedPictures = () =>
+  pictures.slice().sort((first, second) => second.comments.length - first.comments.length);
+
 const Filters = {
   'filter-default': () => pictures.slice(),
-  'filter-random': () => getShuffledPictures(),
-  'filter-discussed': () => getMostDiscussedPictures(),
-};
-
-const getShuffledPictures = () => {
-  return shuffle(pictures.slice()).slice(0, RANDOM_PICTURES_MAX);
-};
-
-const getMostDiscussedPictures = () => {
-  return pictures.slice().sort((first, second) => second.comments.length - first.comments.length);
+  'filter-random': getShuffledPictures,
+  'filter-discussed': getMostDiscussedPictures,
 };
 
 const applyFilters = (id) => {

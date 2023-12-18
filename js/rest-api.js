@@ -3,12 +3,10 @@ const urls = {
   POST: 'https://29.javascript.pages.academy/kekstagram',
 };
 
-const buildFetchRequest = (method, body) => {
-  return {
-    method: method,
-    body: body,
-  };
-};
+const buildFetchRequest = (method, body) => ({
+  method: method,
+  body: body,
+});
 
 const handleResponse = (response) => {
   if (!response.ok) {

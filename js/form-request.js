@@ -1,9 +1,13 @@
-import {closeForm} from './form.js';
-import {isEscapeKey} from './util.js';
+import { closeForm } from './form.js';
+import { isEscapeKey } from './util.js';
 
 const body = document.body;
 const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
+
+const isMessageInnerElement = (element) => {
+  return element.classList.contains('success__inner') || element.classList.contains('error__inner');
+};
 
 const onBodyClick = (evt) => {
   const clickElem = evt.target;
@@ -14,10 +18,6 @@ const onBodyClick = (evt) => {
   closeMessage();
 };
 
-const isMessageInnerElement = (element) => {
-  return element.classList.contains('success__inner') || element.classList.contains('error__inner');
-};
-
 const onBodyKeyDown = (evt) => {
   evt.preventDefault();
   if (isEscapeKey(evt)) {
@@ -25,20 +25,14 @@ const onBodyKeyDown = (evt) => {
   }
 };
 
-function closeMessage() {
-  body.removeEventListener('click', onBodyClick);
-  document.removeEventListener('keydown', onBodyKeyDown);
-  removeLastChildFromBody();
-}
-
 const removeLastChildFromBody = () => {
   body.removeChild(body.lastChild);
 };
 
-const showMessage = (messageTemplate) => {
-  const message = createMessage(messageTemplate);
-  setupMessageEventListeners();
-  appendMessageToBody(message);
+const closeMessage = () => {
+  body.removeEventListener('click', onBodyClick);
+  document.removeEventListener('keydown', onBodyKeyDown);
+  removeLastChildFromBody();
 };
 
 const createMessage = (messageTemplate) => {
@@ -54,6 +48,12 @@ const setupMessageEventListeners = () => {
 
 const appendMessageToBody = (message) => {
   body.appendChild(message);
+};
+
+const showMessage = (messageTemplate) => {
+  const message = createMessage(messageTemplate);
+  setupMessageEventListeners();
+  appendMessageToBody(message);
 };
 
 const onSuccess = () => {
