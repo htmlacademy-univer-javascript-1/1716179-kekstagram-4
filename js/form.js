@@ -2,7 +2,7 @@ import { isEscapeKey } from './utils.js';
 import { unspoilt} from './hashtag-rules.js';
 import {initRadios, resetFilters } from './effects.js';
 import { postData } from './rest-api.js';
-import { onSuccess, onFail } from './form-submit.js';
+import { onSuccess, onFail } from './form-request.js';
 
 const body = document.querySelector('body');
 const formUpload = document.querySelector('.img-upload__form');
