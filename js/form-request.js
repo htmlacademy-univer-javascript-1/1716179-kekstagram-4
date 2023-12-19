@@ -5,9 +5,7 @@ const body = document.body;
 const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
 
-const isMessageInnerElement = (element) => {
-  return element.classList.contains('success__inner') || element.classList.contains('error__inner');
-};
+const isMessageInnerElement = (element) => element.classList.contains('success__inner') || element.classList.contains('error__inner');
 
 const onBodyClick = (evt) => {
   const clickElem = evt.target;
@@ -15,25 +13,27 @@ const onBodyClick = (evt) => {
   if (isMessageInnerElement(clickElem)) {
     return;
   }
-  closeMessage();
+  (() => {
+    body.removeEventListener('click', onBodyClick);
+    document.removeEventListener('keydown', onBodyKeyDown);
+    (() => {
+      body.removeChild(body.lastChild);
+    })();
+  })();
 };
 
-const onBodyKeyDown = (evt) => {
+function onBodyKeyDown(evt) {
   evt.preventDefault();
   if (isEscapeKey(evt)) {
-    closeMessage();
+    (() => {
+      body.removeEventListener('click', onBodyClick);
+      document.removeEventListener('keydown', onBodyKeyDown);
+      (() => {
+        body.removeChild(body.lastChild);
+      })();
+    })();
   }
-};
-
-const removeLastChildFromBody = () => {
-  body.removeChild(body.lastChild);
-};
-
-const closeMessage = () => {
-  body.removeEventListener('click', onBodyClick);
-  document.removeEventListener('keydown', onBodyKeyDown);
-  removeLastChildFromBody();
-};
+}
 
 const createMessage = (messageTemplate) => {
   const message = messageTemplate.cloneNode(true);
@@ -66,4 +66,3 @@ const onFail = () => {
 };
 
 export { onSuccess, onFail };
-
