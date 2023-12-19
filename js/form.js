@@ -25,25 +25,25 @@ const Zoom = {
 
 const setupFormEventListeners = () => {
   closeButton.addEventListener('click', ((evt) => {
-      evt.preventDefault();
-      closeForm();
-    }));
+    evt.preventDefault();
+    closeForm();
+  }));
   document.addEventListener('keydown', ((evt) => {
-      if (isEscapeKey(evt) &&
+    if (isEscapeKey(evt) &&
         !evt.target.classList.contains('text__hashtags') &&
         !evt.target.classList.contains('text__description') &&
         !body.querySelector('.error')) {
-        evt.preventDefault();
-        closeForm();
-      }
-    }));
+      evt.preventDefault();
+      closeForm();
+    }
+  }));
 
   fileUpload.addEventListener('change', (() => {
-      uploadOverlay.classList.remove('hidden');
-      body.classList.add('modal-open');
+    uploadOverlay.classList.remove('hidden');
+    body.classList.add('modal-open');
 
-      openForm();
-      (() => {
+    openForm();
+    (() => {
       const file = fileUpload.files[0];
       const fileName = file.name.toLowerCase();
 
@@ -56,17 +56,17 @@ const setupFormEventListeners = () => {
       }
     })();
       (() => {
-      setupZoomButtons();
+    setupZoomButtons();
       initRadios();
     })();
-    }));
+  }));
   scaleControl.value = '100%';
 
   formUpload.addEventListener('submit', ((evt) => {
-      evt.preventDefault();
-      const formData = new FormData(evt.target);
-      postData(onSuccess, onFail, 'POST', formData);
-    }));
+    evt.preventDefault();
+    const formData = new FormData(evt.target);
+    postData(onSuccess, onFail, 'POST', formData);
+  }));
 };
 
 const changeZoom = (factor = 1) => {
@@ -86,19 +86,24 @@ const changeZoom = (factor = 1) => {
 
 const setupZoomButtons = () => {
   minusButton.addEventListener('click', (() => {
-      changeZoom(-1);
-    }));
+    changeZoom(-1);
+  }));
   plusButton.addEventListener('click', (() => {
-      changeZoom(1);
-    }));
+    changeZoom(1);
+  }));
 };
 
-const cleanupFormEventListeners = () => {
-  closeButton.removeEventListener('click', ((evt) => {
+
+const closeForm = () => {
+    uploadOverlay.classList.add('hidden');
+    body.classList.remove('modal-open');
+
+  (() => {
+    closeButton.removeEventListener('click', ((evt) => {
       evt.preventDefault();
       closeForm();
     }));
-  document.removeEventListener('keydown', ((evt) => {
+      document.removeEventListener('keydown', ((evt) => {
       if (isEscapeKey(evt) &&
         !evt.target.classList.contains('text__hashtags') &&
         !evt.target.classList.contains('text__description') &&
@@ -107,25 +112,19 @@ const cleanupFormEventListeners = () => {
         closeForm();
       }
     }));
-  formUpload.removeEventListener('submit', ((evt) => {
+    formUpload.removeEventListener('submit', ((evt) => {
       evt.preventDefault();
       const formData = new FormData(evt.target);
       postData(onSuccess, onFail, 'POST', formData);
     }));
 
-  minusButton.removeEventListener('click', (() => {
+    minusButton.removeEventListener('click', (() => {
       changeZoom(-1);
     }));
-  plusButton.removeEventListener('click', (() => {
+    plusButton.removeEventListener('click', (() => {
       changeZoom(1);
     }));
-};
-
-const closeForm = () => {
-  uploadOverlay.classList.add('hidden');
-  body.classList.remove('modal-open');
-
-  cleanupFormEventListeners();
+  })();
 
   formUpload.reset();
   unspoilt.reset();

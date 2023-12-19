@@ -19,16 +19,16 @@ const showBigPicture = (picture) => {
     bigPictureForm.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', ((evt) => {
-        if (isEscapeKey(evt)) {
-          evt.preventDefault();
-          closeBigPicture();
-        }
-      }));
-    loader.removeEventListener('click', ((evt) => {
+      if (isEscapeKey(evt)) {
         evt.preventDefault();
-        visibleCommentsCount += COMMENTS_STEP;
-        createComments();
-      }));
+        closeBigPicture();
+      }
+    }));
+    loader.removeEventListener('click', ((evt) => {
+      evt.preventDefault();
+      visibleCommentsCount += COMMENTS_STEP;
+      createComments();
+    }));
   };
 
   const renderComment = (comment) => {
@@ -88,17 +88,17 @@ const showBigPicture = (picture) => {
   visibleCommentsCount = COMMENTS_STEP;
   displayImageAndComments(picture);
   document.addEventListener('keydown', ((evt) => {
-      if (isEscapeKey(evt)) {
-        evt.preventDefault();
-        closeBigPicture();
-      }
-    }));
+    if (isEscapeKey(evt)) {
+      evt.preventDefault();
+      closeBigPicture();
+    }
+  }));
   closeButton.addEventListener('click', closeBigPicture);
   loader.addEventListener('click', ((evt) => {
-      evt.preventDefault();
-      visibleCommentsCount += COMMENTS_STEP;
-      createComments();
-    }));
+    evt.preventDefault();
+    visibleCommentsCount += COMMENTS_STEP;
+    createComments();
+  }));
 };
 
 export { showBigPicture };
