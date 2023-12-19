@@ -16,7 +16,9 @@ const onBodyClick = (evt) => {
   (() => {
     body.removeEventListener('click', onBodyClick);
     document.removeEventListener('keydown', onBodyKeyDown);
-    removeLastChildFromBody();
+    (() => {
+      body.removeChild(body.lastChild);
+    })();
   })();
 };
 
@@ -26,15 +28,12 @@ const onBodyKeyDown = (evt) => {
     (() => {
       body.removeEventListener('click', onBodyClick);
       document.removeEventListener('keydown', onBodyKeyDown);
-      removeLastChildFromBody();
+      (() => {
+        body.removeChild(body.lastChild);
+      })();
     })();
   }
 };
-
-const removeLastChildFromBody = () => {
-  body.removeChild(body.lastChild);
-};
-
 
 const createMessage = (messageTemplate) => {
   const message = messageTemplate.cloneNode(true);
