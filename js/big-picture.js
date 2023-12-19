@@ -67,16 +67,15 @@ const renderBigPicture = (data) => {
 const onDocumentKeyDown = (evt) => {
   if(isEscapeKey(evt)) {
     evt.preventDefault();
-    closeBigPicture();
+    (() => {
+      bigPictureForm.classList.add('hidden');
+      body.classList.remove('modal-open');
+      document.removeEventListener('keydown', onDocumentKeyDown);
+      loader.removeEventListener('click', onLoadNewComments);
+    })();
   }
 };
 
-const closeBigPicture = () => {
-  bigPictureForm.classList.add('hidden');
-  body.classList.remove('modal-open');
-  document.removeEventListener('keydown', onDocumentKeyDown);
-  loader.removeEventListener('click', onLoadNewComments);
-};
 
 const displayImageAndComments = (data) => {
   renderBigPicture(data);
@@ -90,7 +89,12 @@ const showBigPicture = (picture) => {
   visibleCommentsCount = COMMENTS_STEP;
   displayImageAndComments(picture);
   document.addEventListener('keydown', onDocumentKeyDown);
-  closeButton.addEventListener('click', closeBigPicture);
+  closeButton.addEventListener('click', (() => {
+      bigPictureForm.classList.add('hidden');
+      body.classList.remove('modal-open');
+      document.removeEventListener('keydown', onDocumentKeyDown);
+      loader.removeEventListener('click', onLoadNewComments);
+    }));
   loader.addEventListener('click', onLoadNewComments);
 };
 
