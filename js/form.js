@@ -55,8 +55,8 @@ const setupFormEventListeners = () => {
         });
       }
     })();
-      (() => {
-    setupZoomButtons();
+    (() => {
+      setupZoomButtons();
       initRadios();
     })();
   }));
@@ -95,15 +95,15 @@ const setupZoomButtons = () => {
 
 
 const closeForm = () => {
-    uploadOverlay.classList.add('hidden');
-    body.classList.remove('modal-open');
+  uploadOverlay.classList.add('hidden');
+  body.classList.remove('modal-open');
 
   (() => {
     closeButton.removeEventListener('click', ((evt) => {
       evt.preventDefault();
       closeForm();
     }));
-      document.removeEventListener('keydown', ((evt) => {
+    document.removeEventListener('keydown', ((evt) => {
       if (isEscapeKey(evt) &&
         !evt.target.classList.contains('text__hashtags') &&
         !evt.target.classList.contains('text__description') &&
@@ -134,13 +134,6 @@ const closeForm = () => {
 
   resetFilters();
 };
-
-
-
-
-
-
-
 
 const openForm = () => {
   setupFormEventListeners();
