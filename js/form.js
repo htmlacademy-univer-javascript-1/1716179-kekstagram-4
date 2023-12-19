@@ -79,22 +79,20 @@ const closeForm = () => {
 
 // Moved the function declarations to the end
 
-const onCloseFormClick = (evt) => {
+function onCloseFormClick(evt) {
   evt.preventDefault();
   closeForm();
-};
+}
 
-const onCloseFormEscDown = (evt) => {
-  if (
-    isEscapeKey(evt) &&
+function onCloseFormEscDown(evt) {
+  if (isEscapeKey(evt) &&
     !evt.target.classList.contains('text__hashtags') &&
     !evt.target.classList.contains('text__description') &&
-    !body.querySelector('.error')
-  ) {
+    !body.querySelector('.error')) {
     evt.preventDefault();
     closeForm();
   }
-};
+}
 
 const changeImages = () => {
   const file = fileUpload.files[0];
@@ -109,36 +107,36 @@ const changeImages = () => {
   }
 };
 
-const onFileUploadChange = () => {
+function onFileUploadChange() {
   uploadOverlay.classList.remove('hidden');
   body.classList.add('modal-open');
 
   openForm();
   changeImages();
   setupButtonsAndRadios();
-};
+}
 
-const setupButtonsAndRadios = () => {
+function setupButtonsAndRadios() {
   setupZoomButtons();
   initRadios();
-};
+}
 
-const onMinusButtonClick = () => {
+function onMinusButtonClick() {
   changeZoom(-1);
-};
+}
 
-const onPlusButtonClick = () => {
+function onPlusButtonClick() {
   changeZoom(1);
-};
+}
 
-const onFormUploadSubmit = (evt) => {
+function onFormUploadSubmit(evt) {
   evt.preventDefault();
   const formData = new FormData(evt.target);
   postData(onSuccess, onFail, 'POST', formData);
-};
+}
 
-const openForm = () => {
+function openForm() {
   setupFormEventListeners();
-};
+}
 
 export { openForm, closeForm };
