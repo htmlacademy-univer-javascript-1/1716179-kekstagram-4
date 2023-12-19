@@ -90,11 +90,11 @@ const showBigPicture = (picture) => {
   displayImageAndComments(picture);
   document.addEventListener('keydown', onDocumentKeyDown);
   closeButton.addEventListener('click', (() => {
-      bigPictureForm.classList.add('hidden');
-      body.classList.remove('modal-open');
-      document.removeEventListener('keydown', onDocumentKeyDown);
-      loader.removeEventListener('click', onLoadNewComments);
-    }));
+    bigPictureForm.classList.add('hidden');
+    body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onDocumentKeyDown);
+    loader.removeEventListener('click', onLoadNewComments);
+  }));
   loader.addEventListener('click', onLoadNewComments);
 };
 
