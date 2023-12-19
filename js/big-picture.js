@@ -27,7 +27,14 @@ const showBigPicture = (picture) => {
     loader.removeEventListener('click', ((evt) => {
       evt.preventDefault();
       visibleCommentsCount += COMMENTS_STEP;
-      createComments();
+      (() => {
+        socials.innerHTML = '';
+        visibleCommentsCount = Math.min(visibleCommentsCount, currentComments.length);
+        const commentsSelected = currentComments.slice(0, visibleCommentsCount);
+        updateLoaderVisibility();
+        updateCommentsCountText();
+        socials.append(renderComments(commentsSelected));
+      })();
     }));
   };
 
@@ -59,14 +66,6 @@ const showBigPicture = (picture) => {
     bigPictureCommentsCount.textContent = `${visibleCommentsCount} из ${currentComments.length} комментариев`;
   };
 
-  const createComments = () => {
-    socials.innerHTML = '';
-    visibleCommentsCount = Math.min(visibleCommentsCount, currentComments.length);
-    const commentsSelected = currentComments.slice(0, visibleCommentsCount);
-    updateLoaderVisibility();
-    updateCommentsCountText();
-    socials.append(renderComments(commentsSelected));
-  };
 
 
   const renderBigPicture = (data) => {
@@ -79,7 +78,14 @@ const showBigPicture = (picture) => {
 
   const displayImageAndComments = (data) => {
     renderBigPicture(data);
-    createComments();
+    (() => {
+      socials.innerHTML = '';
+      visibleCommentsCount = Math.min(visibleCommentsCount, currentComments.length);
+      const commentsSelected = currentComments.slice(0, visibleCommentsCount);
+      updateLoaderVisibility();
+      updateCommentsCountText();
+      socials.append(renderComments(commentsSelected));
+    })();
   };
 
   bigPictureForm.classList.remove('hidden');
@@ -97,7 +103,14 @@ const showBigPicture = (picture) => {
   loader.addEventListener('click', ((evt) => {
     evt.preventDefault();
     visibleCommentsCount += COMMENTS_STEP;
-    createComments();
+    (() => {
+      socials.innerHTML = '';
+      visibleCommentsCount = Math.min(visibleCommentsCount, currentComments.length);
+      const commentsSelected = currentComments.slice(0, visibleCommentsCount);
+      updateLoaderVisibility();
+      updateCommentsCountText();
+      socials.append(renderComments(commentsSelected));
+    })();
   }));
 };
 

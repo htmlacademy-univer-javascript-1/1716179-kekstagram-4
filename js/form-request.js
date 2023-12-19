@@ -1,39 +1,26 @@
 import { closeForm } from './form.js';
+import { onBodyClick } from './onBodyClick.js';
 import { isEscapeKey } from './util.js';
 
-const body = document.body;
+export const body = document.body;
 const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
 
-const isMessageInnerElement = (element) => element.classList.contains('success__inner') || element.classList.contains('error__inner');
+export const isMessageInnerElement = (element) => element.classList.contains('success__inner') || element.classList.contains('error__inner');
 
-const onBodyClick = (evt) => {
-  const clickElem = evt.target;
-
-  if (isMessageInnerElement(clickElem)) {
-    return;
-  }
-  (() => {
-    body.removeEventListener('click', onBodyClick);
-    document.removeEventListener('keydown', onBodyKeyDown);
-    removeLastChildFromBody();
-  })();
-};
-
-const onBodyKeyDown = (evt) => {
+export const onBodyKeyDown = (evt) => {
   evt.preventDefault();
   if (isEscapeKey(evt)) {
     (() => {
       body.removeEventListener('click', onBodyClick);
       document.removeEventListener('keydown', onBodyKeyDown);
-      removeLastChildFromBody();
+      (() => {
+        body.removeChild(body.lastChild);
+      })();
     })();
   }
 };
 
-const removeLastChildFromBody = () => {
-  body.removeChild(body.lastChild);
-};
 
 
 const createMessage = (messageTemplate) => {
