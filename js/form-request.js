@@ -22,7 +22,7 @@ const onBodyClick = (evt) => {
   })();
 };
 
-const onBodyKeyDown = (evt) => {
+function onBodyKeyDown(evt) {
   evt.preventDefault();
   if (isEscapeKey(evt)) {
     (() => {
@@ -33,7 +33,7 @@ const onBodyKeyDown = (evt) => {
       })();
     })();
   }
-};
+}
 
 const createMessage = (messageTemplate) => {
   const message = messageTemplate.cloneNode(true);
