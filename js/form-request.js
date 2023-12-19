@@ -1,27 +1,39 @@
 import { closeForm } from './form.js';
-import { onBodyClick } from './onBodyClick.js';
 import { isEscapeKey } from './util.js';
 
-export const body = document.body;
+const body = document.body;
 const successMessageTemplate = document.querySelector('#success').content.querySelector('section');
 const errorMessageTemplate = body.querySelector('#error').content.querySelector('section');
 
-export const isMessageInnerElement = (element) => element.classList.contains('success__inner') || element.classList.contains('error__inner');
+const isMessageInnerElement = (element) => {
+  return element.classList.contains('success__inner') || element.classList.contains('error__inner');
+};
 
-export const onBodyKeyDown = (evt) => {
+const onBodyClick = (evt) => {
+  const clickElem = evt.target;
+
+  if (isMessageInnerElement(clickElem)) {
+    return;
+  }
+  closeMessage();
+};
+
+const onBodyKeyDown = (evt) => {
   evt.preventDefault();
   if (isEscapeKey(evt)) {
-    (() => {
-      body.removeEventListener('click', onBodyClick);
-      document.removeEventListener('keydown', onBodyKeyDown);
-      (() => {
-        body.removeChild(body.lastChild);
-      })();
-    })();
+    closeMessage();
   }
 };
 
+const removeLastChildFromBody = () => {
+  body.removeChild(body.lastChild);
+};
 
+const closeMessage = () => {
+  body.removeEventListener('click', onBodyClick);
+  document.removeEventListener('keydown', onBodyKeyDown);
+  removeLastChildFromBody();
+};
 
 const createMessage = (messageTemplate) => {
   const message = messageTemplate.cloneNode(true);
